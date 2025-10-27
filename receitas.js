@@ -358,7 +358,6 @@ const receitas = [
       { nome: "alho", quantidade: 1, unidade: "unidade" },
       { nome: "extrato de tomate", quantidade: 70, unidade: "ml" },
       { nome: "creme de leite", quantidade: 100, unidade: "ml" },
-      { nome: "extrato de tomate", quantidade: 1, unidade: "unidade" },
       { nome: "Coloral", quantidade: 1, unidade: "colher de chá" },
       { nome: "Tempero especial do maracanã", quantidade: 10, unidade: "g" },
     ],
