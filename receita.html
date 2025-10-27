@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes da Receita</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+      <h1>Receitas com Ovos 🍳</h1>
+    </header>
+  <a href="index.html" class="voltar">← Voltar</a>
+
+  <main id="detalhes-container" class="detalhes-container"></main>
+
+  <!-- Modal do vídeo -->
+  <div id="video-modal" class="modal">
+    <div class="modal-content">
+      <span id="fechar-modal">&times;</span>
+      <iframe id="video-frame" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <footer id="footer">Ovo man receitas 2025</footer>
+
+  <script src="receitas.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+    const receita = receitas.find(r => r.id === id);
+    const container = document.getElementById("detalhes-container");
+
+    if (receita) {
+      container.innerHTML = `
+        <div class="receita-detalhe fade-in">
+          <div class="imagem-container">
+            <img src="${receita.imagem}" alt="${receita.titulo}">
+            ${receita.trailer ? `<button id="ver-video" class="btn-video">🎥 Ver vídeo</button>` : ''}
+          </div>
+
+          <div class="info">
+            <div>${receita.tempoPreparo}</div>
+            <div>${receita.porcao}</div>
+
+          ${receita.tags && receita.tags.length > 0 ? `
+            <div class="tags-detalhes">
+              ${receita.tags.map(tag => `<span class="tag-detalhes">${tag}</span>`).join('')}
+            </div>
+          ` : ''}
+          </div>
+
+          <h1>${receita.titulo}</h1>
+          <p class="descricao">${receita.descricao}</p>
+
+          <h3>🥣 Ingredientes</h3>
+          <ul class="ingredientes">
+            ${receita.ingredientes.map(i => `<li>${i.quantidade} ${i.unidade} de ${i.nome}</li>`).join('')}
+          </ul>
+
+          <h3>👨‍🍳 Modo de preparo</h3>
+          <ul class="ingredientes">
+            ${receita.modoPreparo.map(p => `<li><strong>${p.etapa}:</strong> ${p.instrucoes} (${p.tempo})</li>`).join('')}
+          </ul>
+
+          ${receita.observacoes ? `<p class="observacoes"><strong>Observações:</strong> ${receita.observacoes}</p>` : ''}
+        </div>
+      `;
+
+      if (receita.trailer) {
+        const modal = document.getElementById("video-modal");
+        const frame = document.getElementById("video-frame");
+        const fecharModal = document.getElementById("fechar-modal");
+
+        document.getElementById("ver-video").onclick = () => {
+          frame.src = receita.trailer.replace("watch?v=", "embed/") + "?autoplay=1";
+          modal.style.display = "flex";
+        };
+
+        fecharModal.onclick = () => {
+          modal.style.display = "none";
+          frame.src = "";
+        };
+
+        modal.onclick = (e) => {
+          if (e.target === modal) {
+            modal.style.display = "none";
+            frame.src = "";
+          }
+        };
+      }
+    } else {
+      container.innerHTML = "<p>Receita não encontrada.</p>";
+    }
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const footer = document.getElementById('footer');
+      let clickCount = 0;
+      let lastClickTime = 0;
+
+      footer.addEventListener('click', () => {
+        const now = Date.now();
+
+        // se o clique anterior foi há mais de 2 segundos, zera a contagem
+        if (now - lastClickTime > 2000) {
+          clickCount = 0;
+        }
+
+        clickCount++;
+        lastClickTime = now;
+
+        if (clickCount >= 3) {
+          window.location.href = '/receita.html?id=20';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
