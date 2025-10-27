@@ -36,7 +36,6 @@
       footer.addEventListener('click', () => {
         const now = Date.now();
 
-        // se o clique anterior foi há mais de 2 segundos, zera a contagem
         if (now - lastClickTime > 2000) {
           clickCount = 0;
         }

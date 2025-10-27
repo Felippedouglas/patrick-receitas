@@ -14,7 +14,6 @@
 
   <main id="detalhes-container" class="detalhes-container"></main>
 
-  <!-- Modal do vídeo -->
   <div id="video-modal" class="modal">
     <div class="modal-content">
       <span id="fechar-modal">&times;</span>
@@ -103,7 +102,6 @@
       footer.addEventListener('click', () => {
         const now = Date.now();
 
-        // se o clique anterior foi há mais de 2 segundos, zera a contagem
         if (now - lastClickTime > 2000) {
           clickCount = 0;
         }

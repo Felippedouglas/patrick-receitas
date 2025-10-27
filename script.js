@@ -4,10 +4,8 @@ const tags = document.querySelectorAll(".tag");
 function exibirReceitas(filtro = "todas") {
   container.innerHTML = "";
 
-  // Filtra receitas que NÃO tenham a tag 'especiais'
   let lista = receitas.filter(r => !r.tags.includes("especial"));
 
-  // Aplica filtro de tag, se for diferente de 'todas'
   if (filtro !== "todas") {
     lista = lista.filter(r => r.tags.includes(filtro));
   }
@@ -38,5 +36,4 @@ tags.forEach(tag => {
   });
 });
 
-// Exibe todas ao carregar
 exibirReceitas();
